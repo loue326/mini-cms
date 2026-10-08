@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,27 @@ Route::get('/bienvenue', function () {
         'cours' => 'Atelier Framework Côté Serveur',
     ]);
 });
+
 Route::get('/version', function () {
     return 'Laravel ' . app()->version() . ' - PHP ' . PHP_VERSION;
 });
+
 Route::get('/heure', function () {
-    return view('heure');
+    return view('heure', [
+        'heure' => now()->format('H:i'),
+        'date' => now()->format('d/m/Y'),
+    ]);
+});
+
+Route::get('/a-propos', function () {
+    return view('a-propos', [
+        'auteur' => 'Loue Bessaadi',
+        'groupe' => 'MDW3.3',
+    ]);
+});
+Route::get('/a-propos', function () {
+    return view('a-propos', [
+        'auteur' => 'Prenom Nom',
+        'groupe' => 'MDW32',
+    ]);
 });
