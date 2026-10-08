@@ -40,7 +40,7 @@ Route::get('/a-propos', function () {
 });
 Route::get('/a-propos', function () {
     return view('a-propos', [
-        'auteur' => 'Prenom Nom',
+        'auteur' => 'Louee Bessaadi',
         'groupe' => 'MDW32',
     ]);
 });
