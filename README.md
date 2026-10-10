@@ -56,3 +56,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## État actuel
+
+Le projet mini-cms est en cours de développement.
+## Routes disponibles
+
+| Méthode | URI | Réponse |
+|---|---|---|
+| GET | `/` | Page d'accueil |
+| GET | `/bonjour` | Message de bienvenue |
+| GET | `/bonjour-court` | Message de bienvenue court |
+| GET | `/bienvenue` | Vue de bienvenue |
+| GET | `/version` | Version de Laravel et PHP |
+| GET | `/heure` | Affichage de l'heure |
+| GET | `/a-propos` | Vue `a-propos` avec le nom de l'auteur et le groupe |
