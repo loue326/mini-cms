@@ -1,11 +1,12 @@
 
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'home'])->name('home');
+
+Route::get('/a-propos', [PageController::class, 'about'])->name('about');
 
 Route::get('/bonjour', function () {
     return 'Bonjour MDW3 ! Voici ma première route Laravel 13.';
@@ -13,16 +14,8 @@ Route::get('/bonjour', function () {
 
 Route::get('/bonjour-court', fn () => 'Même résultat, écrit avec une fonction fléchée.');
 
-Route::get('/bienvenue', function () {
-    return view('bienvenue', [
-        'etudiant' => 'Loue Bessaadi',
-        'groupe' => 'MDW3.3',
-        'cours' => 'Atelier Framework Côté Serveur',
-    ]);
-});
-
 Route::get('/version', function () {
-    return 'Laravel ' . app()->version() . ' - PHP ' . PHP_VERSION;
+    return 'Laravel '.app()->version().' - PHP '.PHP_VERSION;
 });
 
 Route::get('/heure', function () {
@@ -32,15 +25,3 @@ Route::get('/heure', function () {
     ]);
 });
 
-Route::get('/a-propos', function () {
-    return view('a-propos', [
-        'auteur' => 'Loue Bessaadi',
-        'groupe' => 'MDW3.3',
-    ]);
-});
-Route::get('/a-propos', function () {
-    return view('a-propos', [
-        'auteur' => 'Louee Bessaadi',
-        'groupe' => 'MDW32',
-    ]);
-});
