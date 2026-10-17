@@ -18,4 +18,9 @@ class PageController extends Controller
             'groupe' => 'MDW3.3',
         ]);
     }
+
+    public function time(): View
+    {
+        return view('heure');
+    }
 }

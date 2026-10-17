@@ -19,12 +19,8 @@ Route::get('/version', function () {
     return 'Laravel '.app()->version().' - PHP '.PHP_VERSION;
 });
 
-Route::get('/heure', function () {
-    return view('heure', [
-        'heure' => now()->format('H:i'),
-        'date' => now()->format('d/m/Y'),
-    ]);
-});
+Route::get('/heure', [PageController::class, 'time'])
+    ->name('time');
 
 Route::prefix('posts')->name('posts.')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('index');
