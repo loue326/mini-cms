@@ -59,15 +59,29 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## État actuel
 
-Le projet mini-cms est en cours de développement.
+Mini-CMS présente une page d'accueil, une page « À propos », une page Heure et une section d'articles avec liste, archives par année et pages de détail.
+
 ## Routes disponibles
 
 | Méthode | URI | Réponse |
 |---|---|---|
 | GET | `/` | Page d'accueil |
-| GET | `/bonjour` | Message de bienvenue |
-| GET | `/bonjour-court` | Message de bienvenue court |
-| GET | `/bienvenue` | Vue de bienvenue |
-| GET | `/version` | Version de Laravel et PHP |
-| GET | `/heure` | Affichage de l'heure |
-| GET | `/a-propos` | Vue `a-propos` avec le nom de l'auteur et le groupe |
+| GET | `/a-propos` | Présentation de Mini-CMS, de l'auteur et du groupe |
+| GET | `/heure` | Page Heure |
+| GET | `/posts` | Liste des articles |
+| GET | `/posts/archive/{year}` | Articles d'une année |
+| GET | `/posts/{slug}` | Détail d'un article |
+
+## Captures d'écran
+
+### Page d'accueil
+
+![Page d'accueil Mini-CMS](screenshots/s03-accueil.png.png)
+
+### Liste des articles
+
+![Liste des articles](screenshots/s03-articles.png.png)
+
+### Détail d'un article
+
+![Détail d'un article](screenshots/s03-article.png.png)
