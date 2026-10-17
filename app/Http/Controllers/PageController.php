@@ -8,14 +8,14 @@ class PageController extends Controller
 {
     public function home(): View
     {
-        return view('welcome');
+        return view('home');
     }
 
     public function about(): View
     {
         return view('a-propos', [
-            'auteur' => 'Jean',
-            'groupe' => 'MDW3',
+            'auteur' => 'Loue',
+            'groupe' => 'MDW3.3',
         ]);
     }
 }
