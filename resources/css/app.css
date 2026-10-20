@@ -66,6 +66,7 @@ a:hover { color: var(--orange); }
 .article-detail { max-width: 760px; }
 .article-title { margin: 1.5rem 0 .5rem; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.12; letter-spacing: -.05em; }
 .article-date { color: var(--muted); font-size: .9rem; }
+.article-excerpt { margin: .8rem 0 1.5rem; color: var(--muted); font-size: 1.12rem; line-height: 1.6; }
 .article-body { margin-top: 2rem; white-space: pre-line; font-size: 1.08rem; line-height: 1.85; }
 .post-form { max-width: 720px; display: grid; gap: 1.2rem; padding: clamp(1.2rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
 .form-group { display: grid; gap: .4rem; }

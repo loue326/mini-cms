@@ -29,6 +29,14 @@
         </div>
 
         <div class="form-group">
+            <label for="excerpt">Extrait (facultatif, 255 caractères au plus)</label>
+            <input class="form-control" type="text" id="excerpt" name="excerpt" maxlength="255" value="{{ old('excerpt') }}">
+            @error('excerpt')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="form-group">
             <label for="body">Contenu</label>
             <textarea class="form-control" id="body" name="body" rows="8">{{ old('body') }}</textarea>
             @error('body')
