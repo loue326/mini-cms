@@ -2,86 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\View;
+use App\Models\Post;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    private function posts(): array
-    {
-        return [
-            'decouvrir-laravel-13' => [
-                'slug' => 'decouvrir-laravel-13',
-                'title' => 'Decouvrir Laravel 13',
-                'excerpt' => 'Decouvrez les changements apportes a la structure de Laravel 13.',
-                'author' => 'Loue',
-                'date' => '2026',
-                'year' => 2026,
-                'featured' => true,
-                'body' => [
-                    'Laravel 13 simplifie la structure du projet.',
-                    'La configuration des middlewares et des exceptions se fait dans bootstrap/app.php.',
-                ],
-            ],
-            'routes-et-controleurs' => [
-                'slug' => 'routes-et-controleurs',
-                'title' => 'Routes et controleurs',
-                'excerpt' => 'Comprenez comment les routes et les controleurs organisent une application Laravel.',
-                'author' => 'Loue',
-                'date' => '2026',
-                'year' => 2026,
-                'featured' => false,
-                'body' => [
-                    'Une route associe une URL a une methode de controleur.',
-                    'Le controleur prepare les donnees, puis la vue les affiche.',
-                ],
-            ],
-            'premiers-pas-avec-blade' => [
-                'slug' => 'premiers-pas-avec-blade',
-                'title' => 'Premiers pas avec Blade',
-                'excerpt' => 'Apprenez les bases du moteur de vues Blade et de son affichage securise.',
-                'author' => 'Loue',
-                'date' => '2025',
-                'year' => 2025,
-                'featured' => false,
-                'body' => [
-                    'Blade est le moteur de vues de Laravel.',
-                    'Les doubles accolades echappent le contenu affiche.',
-                ],
-            ],
-        ];
-    }
-
     public function index(): View
     {
         return view('posts.index', [
             'heading' => 'Tous les articles',
-            'posts' => $this->posts(),
+            'posts' => Post::latest('id')->paginate(4),
         ]);
     }
 
     public function archive(string $year): View
     {
-        $posts = array_filter(
-            $this->posts(),
-            fn (array $post) => $post['year'] === (int) $year
-        );
-
         return view('posts.index', [
             'heading' => 'Articles de '.$year,
-            'posts' => $posts,
+            'posts' => Post::whereYear('published_at', $year)
+                ->latest('id')
+                ->paginate(4),
         ]);
     }
 
-    public function show(string $slug): View
+    public function create(): View
     {
-        $posts = $this->posts();
+        return view('posts.create');
+    }
 
-        if (! array_key_exists($slug, $posts)) {
-            abort(404);
-        }
-
-        return view('posts.show', [
-            'post' => $posts[$slug],
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-z0-9-]+$/',
+                'unique:posts,slug',
+            ],
+            'body' => ['required', 'string', 'min:20'],
+            'is_published' => ['nullable', 'boolean'],
         ]);
+
+        $validated['is_published'] = $request->boolean('is_published');
+        $validated['published_at'] = $validated['is_published'] ? now() : null;
+
+        $post = Post::create($validated);
+
+        return redirect()->route('posts.show', $post);
+    }
+
+    public function show(Post $post): View
+    {
+        return view('posts.show', compact('post'));
+    }
+
+    public function edit(Post $post)
+    {
+        //
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        //
+    }
+
+    public function destroy(Post $post)
+    {
+        //
     }
 }
