@@ -20,8 +20,23 @@
 
         <div class="article-body">{{ $post->body }}</div>
 
-        <div class="form-actions">
+        <div class="post-actions">
             <a class="button-link" href="{{ route('posts.edit', $post) }}">Modifier</a>
+
+            <details class="delete-details">
+                <summary class="delete-summary">Supprimer</summary>
+
+                <form method="POST" action="{{ route('posts.destroy', $post) }}" class="delete-form">
+                    @csrf
+                    @method('DELETE')
+
+                    <p class="delete-warning">
+                        Cette action est définitive : l'article sera effacé de la base.
+                    </p>
+
+                    <button class="delete-button" type="submit">Confirmer la suppression</button>
+                </form>
+            </details>
         </div>
     </article>
 </x-layout>

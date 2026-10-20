@@ -94,3 +94,12 @@ textarea.form-control { resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+.post-actions { margin-top: 2rem; display: flex; align-items: flex-start; flex-wrap: wrap; gap: 1rem; }
+.delete-details { position: relative; }
+.delete-summary { padding: .7rem 1rem; border: 1px solid #b93d36; border-radius: 10px; color: #a12f2b; font-weight: 700; cursor: pointer; list-style: none; }
+.delete-summary::-webkit-details-marker { display: none; }
+.delete-details[open] .delete-summary { background: #fff0ed; }
+.delete-form { margin-top: .75rem; max-width: 360px; padding: 1rem; border: 1px solid #efc2ba; border-radius: 12px; background: #fff4f1; }
+.delete-warning { margin: 0 0 .9rem; color: #842e2a; font-size: .92rem; }
+.delete-button { padding: .65rem .9rem; border: 0; border-radius: 9px; background: #b43b34; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.delete-button:hover { background: #8e2d28; }
