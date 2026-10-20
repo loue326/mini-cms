@@ -1,8 +1,10 @@
 <x-layout>
     <x-slot:title>À propos - Mini-CMS</x-slot:title>
 
-    <h1 class="text-3xl font-bold mb-6">À propos</h1>
-
+    <x-page-header
+        title="À propos"
+        subtitle="Découvrez notre plateforme Mini-CMS"
+    />
     <div class="space-y-4 max-w-2xl">
         <p class="text-gray-700 leading-relaxed">
             Mini-CMS est le projet fil rouge de l'Atelier Framework Côté Serveur, 3e année MDW, ISET Sidi Bouzid.
