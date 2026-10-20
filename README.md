@@ -57,25 +57,29 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## État actuel (tag lab-03)
+## État actuel (tag lab-03b)
 
-- Articles enregistrés dans une base SQLite et lus avec le modèle Eloquent `Post`.
-- Table `posts` créée par une migration : après un clone, `php artisan migrate` la recrée (vide).
-- Liste paginée, détail par liaison modèle-route, formulaire de création avec validation côté serveur.
-- Premiers tests Pest : `php artisan test`.
+- CRUD complet des articles : liste, détail, création, modification, suppression avec confirmation.
+- Colonne `excerpt` ajoutée par une nouvelle migration.
+- Scope `published` utilisé sur l'accueil et l'archive.
+- Tests Pest des lectures (`PostPagesTest`) et des écritures (`PostWriteTest`) : `php artisan test`.
 
 ## Routes disponibles
 
-| Méthode | URI                     | Nom             | Action                   |
-| ------- | ----------------------- | --------------- | ------------------------ |
-| GET     | `/`                     | `home`          | `PageController@home`    |
-| GET     | `/a-propos`             | `about`         | `PageController@about`   |
-| GET     | `/heure`                | `time`          | `PageController@time`    |
-| GET     | `/posts`                | `posts.index`   | `PostController@index`   |
-| GET     | `/posts/archive/{year}` | `posts.archive` | `PostController@archive` |
-| GET     | `/posts/create`         | `posts.create`  | `PostController@create`  |
-| POST    | `/posts`                | `posts.store`   | `PostController@store`   |
-| GET     | `/posts/{post}`         | `posts.show`    | `PostController@show`    |
+| Méthode | URI | Nom | Action |
+|---|---|---|---|
+| GET | `/` | `home` | `PageController@home` |
+| GET | `/a-propos` | `about` | `PageController@about` |
+| GET | `/heure` | `time` | `PageController@time` |
+| GET | `/posts` | `posts.index` | `PostController@index` |
+| GET | `/posts/archive/{year}` | `posts.archive` | `PostController@archive` |
+| GET | `/posts/create` | `posts.create` | `PostController@create` |
+| POST | `/posts` | `posts.store` | `PostController@store` |
+| GET | `/posts/{post}` | `posts.show` | `PostController@show` |
+| GET | `/posts/{post}/edit` | `posts.edit` | `PostController@edit` |
+| PUT | `/posts/{post}` | `posts.update` | `PostController@update` |
+| DELETE | `/posts/{post}` | `posts.destroy` | `PostController@destroy` |
+| PATCH | `/posts/{post}/publication` | `posts.publication` | `PostController@togglePublication` |
 
 ## Captures d'écran
 
@@ -96,3 +100,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ![Liste paginée des articles](screenshots/s05-articles.png)
 
 ![Formulaire avec erreurs de validation](screenshots/s05-formulaire.png)
+
+### Session 06
+
+![Formulaire de modification prérempli](screenshots/s06-modification.png)
+
+![Confirmation de suppression](screenshots/s06-suppression.png)
