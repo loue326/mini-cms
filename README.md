@@ -57,20 +57,25 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## État actuel
+## État actuel (tag lab-03)
 
-Mini-CMS présente une page d'accueil, une page « À propos », une page Heure et une section d'articles avec liste, archives par année et pages de détail.
+- Articles enregistrés dans une base SQLite et lus avec le modèle Eloquent `Post`.
+- Table `posts` créée par une migration : après un clone, `php artisan migrate` la recrée (vide).
+- Liste paginée, détail par liaison modèle-route, formulaire de création avec validation côté serveur.
+- Premiers tests Pest : `php artisan test`.
 
 ## Routes disponibles
 
-| Méthode | URI | Réponse |
-|---|---|---|
-| GET | `/` | Page d'accueil |
-| GET | `/a-propos` | Présentation de Mini-CMS, de l'auteur et du groupe |
-| GET | `/heure` | Page Heure |
-| GET | `/posts` | Liste des articles |
-| GET | `/posts/archive/{year}` | Articles d'une année |
-| GET | `/posts/{slug}` | Détail d'un article |
+| Méthode | URI                     | Nom             | Action                   |
+| ------- | ----------------------- | --------------- | ------------------------ |
+| GET     | `/`                     | `home`          | `PageController@home`    |
+| GET     | `/a-propos`             | `about`         | `PageController@about`   |
+| GET     | `/heure`                | `time`          | `PageController@time`    |
+| GET     | `/posts`                | `posts.index`   | `PostController@index`   |
+| GET     | `/posts/archive/{year}` | `posts.archive` | `PostController@archive` |
+| GET     | `/posts/create`         | `posts.create`  | `PostController@create`  |
+| POST    | `/posts`                | `posts.store`   | `PostController@store`   |
+| GET     | `/posts/{post}`         | `posts.show`    | `PostController@show`    |
 
 ## Captures d'écran
 
@@ -85,3 +90,9 @@ Mini-CMS présente une page d'accueil, une page « À propos », une page Heure 
 ### Détail d'un article
 
 ![Détail d'un article](screenshots/s03-article.png.png)
+
+### Session 05
+
+![Liste paginée des articles](screenshots/s05-articles.png)
+
+![Formulaire avec erreurs de validation](screenshots/s05-formulaire.png)

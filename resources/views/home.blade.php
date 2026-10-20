@@ -6,12 +6,10 @@
         subtitle="Découvrez les derniers articles publiés."
     />
 
-    <section class="mt-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">
-            Derniers articles publiés
-        </h2>
+    <section class="home-section">
+        <h2 class="section-title">Derniers articles publiés</h2>
 
-        <div class="grid gap-6 md:grid-cols-2">
+        <div class="cards-grid">
             @forelse ($latestPosts as $post)
                 <x-post-card :post="$post" />
             @empty

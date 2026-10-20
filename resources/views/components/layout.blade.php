@@ -6,14 +6,14 @@
     <title>{{ $title ?? 'Mini-CMS' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
+<body class="site-body">
     <x-navbar />
 
-    <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-8">
+    <main class="site-main">
         {{ $slot }}
     </main>
 
-    <footer class="border-t border-gray-200 py-6 text-center text-sm text-gray-500">
+    <footer class="site-footer">
         Mini-CMS - Atelier Framework Côté Serveur - ISET Sidi Bouzid
     </footer>
 </body>

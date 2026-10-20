@@ -1,9 +1,9 @@
 @props(['title', 'subtitle' => null])
 
-<div class="mb-6">
-    <h1 class="text-3xl font-bold">{{ $title }}</h1>
+<div class="page-heading">
+    <h1 class="page-title">{{ $title }}</h1>
 
     @if ($subtitle)
-        <p class="mt-2 text-gray-600">{{ $subtitle }}</p>
+        <p class="page-subtitle">{{ $subtitle }}</p>
     @endif
 </div>
