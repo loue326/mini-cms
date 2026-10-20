@@ -18,6 +18,16 @@
             <p class="article-excerpt">{{ $post->excerpt }}</p>
         @endif
 
+        <form class="publication-form" action="{{ route('posts.publication', $post) }}" method="POST">
+            @csrf
+            @method('PATCH')
+
+            @if ($post->is_published)
+                <button class="publication-button" type="submit">Dépublier</button>
+            @else
+                <button class="publication-button" type="submit">Publier</button>
+            @endif
+        </form>
         <div class="article-body">{{ $post->body }}</div>
 
         <div class="post-actions">

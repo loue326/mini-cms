@@ -102,4 +102,6 @@ textarea.form-control { resize: vertical; }
 .delete-form { margin-top: .75rem; max-width: 360px; padding: 1rem; border: 1px solid #efc2ba; border-radius: 12px; background: #fff4f1; }
 .delete-warning { margin: 0 0 .9rem; color: #842e2a; font-size: .92rem; }
 .delete-button { padding: .65rem .9rem; border: 0; border-radius: 9px; background: #b43b34; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
-.delete-button:hover { background: #8e2d28; }
+.delete-button:hover { background: #8e2d28; }.publication-form { margin: 1rem 0; }
+.publication-button { padding: .55rem .9rem; border: 1px solid var(--green); border-radius: 9px; background: #e5ece4; color: var(--green-dark); font: inherit; font-weight: 700; cursor: pointer; }
+.publication-button:hover { background: var(--green); color: #fff; }

@@ -77,3 +77,19 @@ it('deletes a post', function () {
 
     $this->assertDatabaseMissing('posts', ['id' => $post->id]);
 });
+it('publishes a draft', function () {
+    $post = Post::create(postData([
+        'is_published' => false,
+        'published_at' => null,
+    ]));
+
+    $this->patch(route('posts.publication', $post))
+        ->assertRedirect(route('posts.show', $post));
+
+    $this->assertDatabaseHas('posts', [
+        'id' => $post->id,
+        'is_published' => 1,
+    ]);
+
+    $this->assertNotNull($post->fresh()->published_at);
+});
