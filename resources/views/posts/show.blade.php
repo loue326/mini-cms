@@ -17,15 +17,11 @@
         @if ($post->excerpt)
             <p class="article-excerpt">{{ $post->excerpt }}</p>
         @endif
+
         <div class="article-body">{{ $post->body }}</div>
 
         <div class="form-actions">
             <a class="button-link" href="{{ route('posts.edit', $post) }}">Modifier</a>
-            <form method="POST" action="{{ route('posts.destroy', $post) }}" onsubmit="return confirm('Supprimer cet article ?')">
-                @csrf
-                @method('DELETE')
-                <button class="button-primary" type="submit">Supprimer</button>
-            </form>
         </div>
     </article>
 </x-layout>

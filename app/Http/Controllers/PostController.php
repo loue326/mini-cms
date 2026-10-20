@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
@@ -73,7 +73,7 @@ class PostController extends Controller
                 Rule::unique('posts', 'slug')->ignore($post),
             ],
             'excerpt' => ['nullable', 'string', 'max:255'],
-            'body' => ['required', 'string'],
+            'body' => ['required', 'string', 'min:20'],
             'is_published' => ['nullable', 'boolean'],
         ]);
 
@@ -84,17 +84,6 @@ class PostController extends Controller
 
         $post->update($validated);
 
-        return redirect()
-            ->route('posts.show', $post)
-            ->with('success', 'Article modifié avec succès.');
-    }
-
-    public function destroy(Post $post): RedirectResponse
-    {
-        $post->delete();
-
-        return redirect()
-            ->route('posts.index')
-            ->with('success', 'Article supprimé avec succès.');
+        return redirect()->route('posts.show', $post);
     }
 }
