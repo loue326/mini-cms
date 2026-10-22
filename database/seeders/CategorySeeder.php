@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -11,6 +12,11 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        foreach (['Laravel', 'PHP', 'Bases de données', 'Front-end'] as $name) {
+            Category::firstOrCreate(
+                ['slug' => str($name)->slug()],
+                ['name' => $name],
+            );
+        }
     }
 }
