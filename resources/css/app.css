@@ -73,6 +73,9 @@ a:hover { color: var(--orange); }
 .pagination-wrap nav > div:last-child { display: flex; flex-wrap: wrap; gap: .35rem; }
 .pagination-wrap a, .pagination-wrap span { display: inline-flex; align-items: center; justify-content: center; min-width: 2.5rem; min-height: 2.5rem; padding: .35rem .7rem; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--green); text-decoration: none; }
 .article-detail { max-width: 760px; }
+.related-posts { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.related-posts h2 { margin: 0 0 1.5rem; font-size: 1.6rem; line-height: 1.25; letter-spacing: -.03em; }
+.related-posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1.2rem; }
 .article-title { margin: 1.5rem 0 .5rem; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.12; letter-spacing: -.05em; }
 .article-date { color: var(--muted); font-size: .9rem; }
 .article-excerpt { margin: .8rem 0 1.5rem; color: var(--muted); font-size: 1.12rem; line-height: 1.6; }

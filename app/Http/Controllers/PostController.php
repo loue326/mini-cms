@@ -59,7 +59,19 @@ class PostController extends Controller
     {
         $post->load('user', 'category', 'tags');
 
-        return view('posts.show', compact('post'));
+        $related = collect();
+
+        if ($post->category_id) {
+            $related = Post::published()
+                ->with('user', 'category', 'tags')
+                ->where('category_id', $post->category_id)
+                ->where('id', '!=', $post->id)
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+        }
+
+        return view('posts.show', compact('post', 'related'));
     }
 
     public function edit(Post $post): View
