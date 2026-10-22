@@ -26,4 +26,12 @@ class PostFactory extends Factory
             'published_at' => $isPublished ? fake()->dateTimeThisYear() : null,
         ];
     }
+
+    public function published(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_published' => true,
+            'published_at' => now(),
+        ]);
+    }
 }
