@@ -6,7 +6,7 @@
 
         <h1 class="article-title">{{ $post->title }}</h1>
 
-        <p class="text-sm text-gray-500 mb-4">
+        <p class="article-metadata">
             @if ($post->published_at)
                 Publié le {{ $post->published_at->format('d/m/Y') }}
             @else
@@ -17,9 +17,9 @@
         </p>
 
         @if ($post->tags->isNotEmpty())
-            <ul class="mb-6 flex flex-wrap gap-2" aria-label="Tags de l'article">
+            <ul class="article-tags" aria-label="Tags de l'article">
                 @foreach ($post->tags as $tag)
-                    <li class="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                    <li class="article-tag">
                         {{ $tag->name }}
                     </li>
                 @endforeach
@@ -63,12 +63,12 @@
     </article>
 
     @if ($related->isNotEmpty())
-        <section class="related-posts mt-10 border-t border-gray-200 pt-8">
-            <h2 class="mb-6 text-2xl font-bold text-gray-900">
+        <section class="related-posts">
+            <h2>
                 Dans la même catégorie
             </h2>
 
-            <div class="related-posts-grid grid gap-6 md:grid-cols-3">
+            <div class="related-posts-grid">
                 @foreach ($related as $relatedPost)
                     <x-post-card :post="$relatedPost" />
                 @endforeach
