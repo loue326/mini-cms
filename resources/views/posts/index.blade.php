@@ -3,9 +3,11 @@
 
     <x-page-header :title="$heading" />
 
-    <a class="button-link" href="{{ route('posts.create') }}">Nouvel article</a>
+    <div class="posts-index-actions">
+        <a class="button-link" href="{{ route('posts.create') }}">Nouvel article</a>
+    </div>
 
-    <div class="cards-grid">
+    <div class="cards-grid posts-grid">
         @forelse ($posts as $post)
             <x-post-card :post="$post" />
         @empty

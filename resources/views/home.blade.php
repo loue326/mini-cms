@@ -6,7 +6,7 @@
         subtitle="Découvrez les derniers articles publiés."
     />
 
-    <section class="home-section">
+    <section class="home-section home-posts">
         <h2 class="section-title">Derniers articles publiés</h2>
 
         <div class="cards-grid">
