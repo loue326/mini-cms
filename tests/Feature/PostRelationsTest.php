@@ -37,6 +37,8 @@ it('filters published posts by category slug', function () {
     Post::factory()->create([
         'title' => 'Brouillon privé',
         'category_id' => $category->id,
+        'is_published' => false,
+        'published_at' => null,
     ]);
     Post::factory()->published()->create([
         'title' => 'Autre catégorie',
