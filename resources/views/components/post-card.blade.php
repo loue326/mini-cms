@@ -27,7 +27,7 @@
         <ul class="post-tag-list" aria-label="Tags de l'article">
             @foreach ($post->tags as $tag)
                 <li class="post-tag">
-                    {{ $tag->name }}
+                    <a href="{{ route('posts.tag', $tag->slug) }}">{{ $tag->name }}</a>
                 </li>
             @endforeach
         </ul>

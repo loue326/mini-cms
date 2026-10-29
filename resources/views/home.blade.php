@@ -21,6 +21,22 @@
         @endforeach
     </ul>
 
+    @if ($tags->isNotEmpty())
+        <section class="home-section">
+            <h2 class="section-title">Tags populaires</h2>
+
+            <ul class="home-tag-list" aria-label="Tags populaires">
+                @foreach ($tags as $tag)
+                    <li>
+                        <a href="{{ route('posts.tag', $tag->slug) }}">
+                            {{ $tag->name }} ({{ $tag->published_posts_count }})
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+
     <section class="home-section home-posts">
         <h2 class="section-title">Derniers articles publiés</h2>
 

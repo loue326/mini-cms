@@ -77,6 +77,18 @@ class PostController extends Controller
         ]);
     }
 
+    public function byTag(Tag $tag): View
+    {
+        return view('posts.index', [
+            'heading' => 'Tag : '.$tag->name,
+            'posts' => $tag->posts()
+                ->published()
+                ->with(['user', 'category', 'tags'])
+                ->orderByDesc('published_at')
+                ->paginate(4),
+        ]);
+    }
+
     public function show(Post $post): View
     {
         $post->load('user', 'category', 'tags');
