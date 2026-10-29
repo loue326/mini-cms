@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Tag>
@@ -17,9 +18,20 @@ class TagFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->randomElement([
+            'Débutant',
+            'Astuce',
+            'Sécurité',
+            'Performance',
+            'Tests avec Pest',
+            'Composants Blade',
+            'Eloquent',
+            'Bonnes pratiques',
+        ]);
+
         return [
-            'name' => fake()->unique()->word(),
-            'slug' => fake()->unique()->slug(),
+            'name' => $name,
+            'slug' => Str::slug($name).'-'.fake()->unique()->numerify('####'),
         ];
     }
 }

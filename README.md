@@ -57,12 +57,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## État actuel (tag lab-04)
+## État actuel
 
-- Modèles `Category` et `Tag` reliés à `Post` : un article a une catégorie et un auteur (1:N) et plusieurs tags (N:N, table pivot `post_tag`).
-- Fabriques `PostFactory` (état `published()`), `CategoryFactory`, `TagFactory` et seeders pour un jeu de données réaliste.
-- Chargement anticipé avec `with()` ; `Model::preventLazyLoading()` signale tout problème N+1 hors production.
-- Tests Pest : `PostPagesTest`, `PostWriteTest` et `PostRelationsTest`.
+- Mini-CMS permet de créer, consulter, modifier et supprimer des articles, et de gérer leur publication.
+- Les articles sont reliés à un auteur, une catégorie et plusieurs tags. Les pages par catégorie et par tag utilisent leurs slugs.
+- L’accueil affiche les catégories avec le nombre d’articles publiés et les tags populaires avec leurs compteurs.
+- Les factories et seeders préparent des données de démonstration en français : 3 utilisateurs, 4 catégories, 6 tags et 12 articles (9 publiés, 3 brouillons, 24 associations article/tag).
+- Les tests Pest couvrent les pages, les formulaires, les relations, les filtres et le jeu de données.
 
 ## Données de démonstration
 
@@ -77,11 +78,13 @@ Après un clone, reconstruire la base avec `php artisan migrate:fresh --seed`. A
 | GET | `/heure` | `time` | `PageController@time` |
 | GET | `/posts` | `posts.index` | `PostController@index` |
 | GET | `/posts/archive/{year}` | `posts.archive` | `PostController@archive` |
+| GET | `/posts/categorie/{category:slug}` | `posts.category` | `PostController@byCategory` |
+| GET | `/posts/tag/{tag:slug}` | `posts.tag` | `PostController@byTag` |
 | GET | `/posts/create` | `posts.create` | `PostController@create` |
 | POST | `/posts` | `posts.store` | `PostController@store` |
 | GET | `/posts/{post}` | `posts.show` | `PostController@show` |
 | GET | `/posts/{post}/edit` | `posts.edit` | `PostController@edit` |
-| PUT | `/posts/{post}` | `posts.update` | `PostController@update` |
+| PUT/PATCH | `/posts/{post}` | `posts.update` | `PostController@update` |
 | DELETE | `/posts/{post}` | `posts.destroy` | `PostController@destroy` |
 | PATCH | `/posts/{post}/publication` | `posts.publication` | `PostController@togglePublication` |
 
@@ -116,3 +119,9 @@ Après un clone, reconstruire la base avec `php artisan migrate:fresh --seed`. A
 ![Liste des articles avec leur catégorie, leur auteur et leurs tags](screenshots/s07-liste-relations.png)
 
 ![Page d'un article avec ses tags et les articles de la même catégorie](screenshots/s07-detail-tags.png)
+
+### Session 08
+
+![Formulaire de modification avec la catégorie et les tags](screenshots/s08-formulaire-relations.png)
+
+![Page des articles d'une catégorie](screenshots/s08-page-categorie.png)

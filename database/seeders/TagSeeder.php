@@ -12,10 +12,17 @@ class TagSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (['Débutant', 'Astuce', 'Sécurité', 'Performance', 'Tests', 'Blade'] as $name) {
-            Tag::firstOrCreate(
-                ['slug' => str($name)->slug()],
-                ['name' => $name],
+        foreach ([
+            ['slug' => 'dabutant', 'name' => 'Débutant'],
+            ['slug' => 'astuce', 'name' => 'Astuce'],
+            ['slug' => 'sacurita', 'name' => 'Sécurité'],
+            ['slug' => 'performance', 'name' => 'Performance'],
+            ['slug' => 'tests', 'name' => 'Tests automatisés'],
+            ['slug' => 'blade', 'name' => 'Composants Blade'],
+        ] as $tag) {
+            Tag::updateOrCreate(
+                ['slug' => $tag['slug']],
+                ['name' => $tag['name']],
             );
         }
     }

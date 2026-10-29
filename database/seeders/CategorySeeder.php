@@ -12,10 +12,15 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (['Laravel', 'PHP', 'Bases de données', 'Front-end'] as $name) {
-            Category::firstOrCreate(
-                ['slug' => str($name)->slug()],
-                ['name' => $name],
+        foreach ([
+            ['slug' => 'laravel', 'name' => 'Laravel'],
+            ['slug' => 'php', 'name' => 'PHP'],
+            ['slug' => 'bases-de-donnaes', 'name' => 'Bases de données'],
+            ['slug' => 'front-end', 'name' => 'Développement front-end'],
+        ] as $category) {
+            Category::updateOrCreate(
+                ['slug' => $category['slug']],
+                ['name' => $category['name']],
             );
         }
     }
