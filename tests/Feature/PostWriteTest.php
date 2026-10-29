@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Tag;
 
 beforeEach(function () {
     $this->withoutVite();
@@ -26,6 +27,17 @@ it('creates a post from the form', function () {
         'slug' => 'article-de-test',
         'excerpt' => 'Un extrait court.',
     ]);
+});
+
+it('syncs the submitted tags when creating a post', function () {
+    $tags = Tag::factory(2)->create();
+
+    $this->post(route('posts.store'), postData(['tags' => [$tags[0]->id]]))
+        ->assertRedirect();
+
+    $post = Post::query()->where('slug', 'article-de-test')->firstOrFail();
+
+    expect($post->tags()->pluck('tags.id')->all())->toBe([$tags[0]->id]);
 });
 
 it('does not create a post without a title', function () {
@@ -54,6 +66,23 @@ it('updates a post and keeps its own slug', function () {
         'title' => 'Titre modifie',
         'slug' => 'article-de-test',
     ]);
+});
+
+it('replaces its tags when updating and removes them when none are submitted', function () {
+    $post = Post::create(postData());
+    $tags = Tag::factory(3)->create();
+    $post->tags()->sync([$tags[0]->id, $tags[1]->id]);
+
+    $this->put(route('posts.update', $post), postData([
+        'tags' => [$tags[1]->id, $tags[2]->id],
+    ]))->assertRedirect(route('posts.show', $post));
+
+    expect($post->fresh()->tags()->pluck('tags.id')->all())->toBe([$tags[1]->id, $tags[2]->id]);
+
+    $this->put(route('posts.update', $post), postData())
+        ->assertRedirect(route('posts.show', $post));
+
+    expect($post->fresh()->tags()->count())->toBe(0);
 });
 
 it('refuses the slug of another post', function () {

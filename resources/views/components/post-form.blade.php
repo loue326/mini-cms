@@ -1,4 +1,4 @@
-@props(['post' => null])
+@props(['post' => null, 'categories', 'tags'])
 
 <form class="post-form" method="POST" action="{{ $post ? route('posts.update', $post) : route('posts.store') }}">
     @csrf
@@ -35,6 +35,35 @@
         <label for="body">Contenu</label>
         <textarea class="form-control" id="body" name="body" rows="8">{{ old('body', $post?->body) }}</textarea>
         @error('body')
+            <p class="field-error">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <fieldset class="form-group">
+        <legend>Tags</legend>
+        @foreach ($tags as $tag)
+            <div class="form-checkbox">
+                <input type="checkbox" id="tag-{{ $tag->id }}" name="tags[]" value="{{ $tag->id }}"
+                    @checked(in_array($tag->id, old('tags', $post?->tags->modelKeys() ?? [])))>
+                <label for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+            </div>
+        @endforeach
+        @error('tags')
+            <p class="field-error">{{ $message }}</p>
+        @enderror
+    </fieldset>
+
+    <div class="form-group">
+        <label for="category_id">Catégorie</label>
+        <select class="form-control" id="category_id" name="category_id">
+            <option value="">Aucune catégorie</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" @selected(old('category_id', $post?->category_id) == $category->id)>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('category_id')
             <p class="field-error">{{ $message }}</p>
         @enderror
     </div>

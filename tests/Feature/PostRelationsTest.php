@@ -28,6 +28,31 @@ it('lists posts with their category, author and tags without lazy loading', func
         ->assertSee('Astuce');
 });
 
+it('filters published posts by category slug', function () {
+    $category = Category::factory()->create(['slug' => 'tutoriels']);
+    $published = Post::factory()->published()->create([
+        'title' => 'Article publié',
+        'category_id' => $category->id,
+    ]);
+    Post::factory()->create([
+        'title' => 'Brouillon privé',
+        'category_id' => $category->id,
+    ]);
+    Post::factory()->published()->create([
+        'title' => 'Autre catégorie',
+    ]);
+
+    $this->get(route('posts.category', $category->slug))
+        ->assertOk()
+        ->assertSee($published->title)
+        ->assertDontSee('Brouillon privé')
+        ->assertDontSee('Autre catégorie');
+});
+
+it('returns 404 for an unknown category slug', function () {
+    $this->get('/posts/categorie/inconnue')->assertNotFound();
+});
+
 it('keeps the posts when their category is deleted', function () {
     $category = Category::factory()->create();
     $post = Post::factory()->create(['category_id' => $category->id]);
