@@ -11,7 +11,13 @@
     </div>
 
     <p class="post-taxonomy">
-        {{ $post->category?->name ?? 'Sans catégorie' }}
+        @if ($post->category)
+            <a href="{{ route('posts.category', $post->category) }}" class="underline hover:text-indigo-600">
+                {{ $post->category->name }}
+            </a>
+        @else
+            Sans catégorie
+        @endif
         - par {{ $post->user?->name ?? 'auteur inconnu' }}
     </p>
 

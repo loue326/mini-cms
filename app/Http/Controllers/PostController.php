@@ -67,13 +67,14 @@ class PostController extends Controller
 
     public function byCategory(Category $category): View
     {
-        $posts = $category->posts()
-            ->published()
-            ->with(['user', 'category', 'tags'])
-            ->latest()
-            ->paginate(9);
-
-        return view('posts.index', compact('posts'));
+        return view('posts.index', [
+            'heading' => 'Catégorie : '.$category->name,
+            'posts' => $category->posts()
+                ->published()
+                ->with('user', 'category', 'tags')
+                ->latest('published_at')
+                ->paginate(4),
+        ]);
     }
 
     public function show(Post $post): View
