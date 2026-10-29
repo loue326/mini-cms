@@ -1,5 +1,11 @@
 @props(['post' => null, 'categories', 'tags'])
 
+@php
+    $selectedTags = session()->hasOldInput()
+        ? old('tags', [])
+        : ($post?->tags->pluck('id')->all() ?? []);
+@endphp
+
 <form class="post-form" method="POST" action="{{ $post ? route('posts.update', $post) : route('posts.store') }}">
     @csrf
 
@@ -39,20 +45,6 @@
         @enderror
     </div>
 
-    <fieldset class="form-group">
-        <legend>Tags</legend>
-        @foreach ($tags as $tag)
-            <div class="form-checkbox">
-                <input type="checkbox" id="tag-{{ $tag->id }}" name="tags[]" value="{{ $tag->id }}"
-                    @checked(in_array($tag->id, old('tags', $post?->tags->modelKeys() ?? [])))>
-                <label for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
-            </div>
-        @endforeach
-        @error('tags')
-            <p class="field-error">{{ $message }}</p>
-        @enderror
-    </fieldset>
-
     <div class="form-group">
         <label for="category_id">Catégorie</label>
         <select class="form-control" id="category_id" name="category_id">
@@ -67,6 +59,23 @@
             <p class="field-error">{{ $message }}</p>
         @enderror
     </div>
+
+    <fieldset class="form-group">
+        <legend>Tags</legend>
+        @foreach ($tags as $tag)
+            <div class="form-checkbox">
+                <input type="checkbox" id="tag-{{ $tag->id }}" name="tags[]" value="{{ $tag->id }}"
+                    @checked(in_array($tag->id, $selectedTags))>
+                <label for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+            </div>
+        @endforeach
+        @error('tags')
+            <p class="field-error">{{ $message }}</p>
+        @enderror
+        @error('tags.*')
+            <p class="field-error">{{ $message }}</p>
+        @enderror
+    </fieldset>
 
     <div class="form-checkbox">
         <input type="hidden" name="is_published" value="0">
