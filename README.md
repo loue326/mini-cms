@@ -57,13 +57,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## État actuel
+## État actuel (tag lab-05)
 
-- Mini-CMS permet de créer, consulter, modifier et supprimer des articles, et de gérer leur publication.
-- Les articles sont reliés à un auteur, une catégorie et plusieurs tags. Les pages par catégorie et par tag utilisent leurs slugs.
-- L’accueil affiche les catégories avec le nombre d’articles publiés et les tags populaires avec leurs compteurs.
-- Les factories et seeders préparent des données de démonstration en français : 3 utilisateurs, 4 catégories, 6 tags et 12 articles (9 publiés, 3 brouillons, 24 associations article/tag).
-- Les tests Pest couvrent les pages, les formulaires, les relations, les filtres et le jeu de données.
+- Validation des articles dans `StorePostRequest` et `UpdatePostRequest` (`$request->validated()`) : plus aucune règle dans le contrôleur.
+- Messages flash après création, modification, suppression et publication, affichés par le layout avec `x-alert`.
+- Middleware `EnsureSiteIsWritable` (alias `writable`) : avec `SITE_READ_ONLY=true` dans `.env`, les requêtes d'écriture reçoivent une erreur 503.
+- Page « Article introuvable » (404) pour un article inexistant, rendue depuis `withExceptions` dans `bootstrap/app.php` ; les autres 404 gardent la page standard.
+- Tests Pest : `PostPagesTest`, `PostWriteTest`, `PostRelationsTest`, `PostTaxonomyTest` et `PostFeedbackTest`.
 
 ## Données de démonstration
 
@@ -125,3 +125,9 @@ Après un clone, reconstruire la base avec `php artisan migrate:fresh --seed`. A
 ![Formulaire de modification avec la catégorie et les tags](screenshots/s08-formulaire-relations.png)
 
 ![Page des articles d'une catégorie](screenshots/s08-page-categorie.png)
+
+### Session 09
+
+![Page d'un article avec le message flash « Article créé. »](screenshots/s09-message-flash.png)
+
+![Page Article introuvable pour un identifiant inexistant](screenshots/s09-article-introuvable.png)
