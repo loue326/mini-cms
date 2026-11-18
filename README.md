@@ -57,13 +57,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## État actuel (tag lab-05)
+## État actuel (tag lab-06)
 
-- Validation des articles dans `StorePostRequest` et `UpdatePostRequest` (`$request->validated()`) : plus aucune règle dans le contrôleur.
+- Validation des articles et des catégories/tags dans des Form Requests (`$request->validated()`) : plus aucune règle dans les contrôleurs.
 - Messages flash après création, modification, suppression et publication, affichés par le layout avec `x-alert`.
+- Back-office des catégories et des tags sous `/admin` (liste avec nombre d'articles, création, modification, suppression), protégé par le middleware `writable`.
+- Messages de validation en français (`lang/fr/validation.php`), avec des messages dédiés au slug des catégories et des tags.
 - Middleware `EnsureSiteIsWritable` (alias `writable`) : avec `SITE_READ_ONLY=true` dans `.env`, les requêtes d'écriture reçoivent une erreur 503.
-- Page « Article introuvable » (404) pour un article inexistant, rendue depuis `withExceptions` dans `bootstrap/app.php` ; les autres 404 gardent la page standard.
-- Tests Pest : `PostPagesTest`, `PostWriteTest`, `PostRelationsTest`, `PostTaxonomyTest` et `PostFeedbackTest`.
+- Pages d'erreur 404 et 503 rendues dans le layout du site, page « Article introuvable » pour un article inexistant et page « Catégorie introuvable » pour une catégorie inexistante, rendues depuis `withExceptions` dans `bootstrap/app.php` ; les autres 404 gardent la page standard.
+- Tests Pest : `PostPagesTest`, `PostWriteTest`, `PostRelationsTest`, `PostTaxonomyTest`, `PostFeedbackTest`, `CategoryAdminTest`, `TagAdminTest` et `ErrorPagesTest`.
 
 ## Données de démonstration
 
@@ -87,6 +89,18 @@ Après un clone, reconstruire la base avec `php artisan migrate:fresh --seed`. A
 | PUT/PATCH | `/posts/{post}` | `posts.update` | `PostController@update` |
 | DELETE | `/posts/{post}` | `posts.destroy` | `PostController@destroy` |
 | PATCH | `/posts/{post}/publication` | `posts.publication` | `PostController@togglePublication` |
+| GET | `/admin/categories` | `admin.categories.index` | `CategoryController@index` |
+| GET | `/admin/categories/create` | `admin.categories.create` | `CategoryController@create` |
+| POST | `/admin/categories` | `admin.categories.store` | `CategoryController@store` |
+| GET | `/admin/categories/{category}/edit` | `admin.categories.edit` | `CategoryController@edit` |
+| PUT/PATCH | `/admin/categories/{category}` | `admin.categories.update` | `CategoryController@update` |
+| DELETE | `/admin/categories/{category}` | `admin.categories.destroy` | `CategoryController@destroy` |
+| GET | `/admin/tags` | `admin.tags.index` | `TagController@index` |
+| GET | `/admin/tags/create` | `admin.tags.create` | `TagController@create` |
+| POST | `/admin/tags` | `admin.tags.store` | `TagController@store` |
+| GET | `/admin/tags/{tag}/edit` | `admin.tags.edit` | `TagController@edit` |
+| PUT/PATCH | `/admin/tags/{tag}` | `admin.tags.update` | `TagController@update` |
+| DELETE | `/admin/tags/{tag}` | `admin.tags.destroy` | `TagController@destroy` |
 
 ## Captures d'écran
 
@@ -131,3 +145,9 @@ Après un clone, reconstruire la base avec `php artisan migrate:fresh --seed`. A
 ![Page d'un article avec le message flash « Article créé. »](screenshots/s09-message-flash.png)
 
 ![Page Article introuvable pour un identifiant inexistant](screenshots/s09-article-introuvable.png)
+
+### Session 10
+
+![Page 404 dans le layout du site](screenshots/s10-404.png)
+
+![Messages de validation en français](screenshots/s10-validation.png)
