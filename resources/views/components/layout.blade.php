@@ -10,6 +10,12 @@
     <x-navbar />
 
     <main class="site-main">
+        @if (session('success'))
+            <x-alert type="success" class="mb-6">
+                {{ session('success') }}
+            </x-alert>
+        @endif
+
         {{ $slot }}
     </main>
 

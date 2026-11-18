@@ -53,7 +53,8 @@ class PostController extends Controller
         $post = Post::create(Arr::except($validated, ['tags']));
         $post->tags()->sync($validated['tags'] ?? []);
 
-        return redirect()->route('posts.show', $post);
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Article créé.');
     }
 
     public function byCategory(Category $category): View
@@ -122,14 +123,16 @@ class PostController extends Controller
         $post->update(Arr::except($validated, ['tags']));
         $post->tags()->sync($validated['tags'] ?? []);
 
-        return redirect()->route('posts.show', $post);
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Article mis à jour.');
     }
 
     public function destroy(Post $post): RedirectResponse
     {
         $post->delete();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')
+            ->with('success', 'Article supprimé.');
     }
 
     public function togglePublication(Post $post): RedirectResponse
@@ -141,6 +144,9 @@ class PostController extends Controller
             'published_at' => $isPublished ? now() : null,
         ]);
 
-        return redirect()->route('posts.show', $post);
+        return redirect()->route('posts.show', $post)
+            ->with('success', $isPublished
+                ? 'Article publié.'
+                : 'Article dépublié.');
     }
 }
