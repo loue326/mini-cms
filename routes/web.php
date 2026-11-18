@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,8 @@ Route::middleware('writable')->group(function () {
         '/posts/{post}/publication',
         [PostController::class, 'togglePublication']
     )->name('posts.publication');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('categories', CategoryController::class)->except('show');
+    });
 });
