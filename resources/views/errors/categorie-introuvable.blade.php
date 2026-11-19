@@ -3,22 +3,22 @@
 
     <x-page-header title="Catégorie introuvable" subtitle="Cette catégorie n'existe pas ou a été supprimée." />
 
-    <x-alert type="info" title="Que faire ?" class="max-w-2xl">
+    <x-alert type="info" title="Que faire ?">
         Vérifiez l'adresse, ou parcourez les catégories existantes.
     </x-alert>
 
-    <p class="mt-6">
-        <a href="{{ route('posts.index') }}" class="font-medium text-indigo-600 hover:underline">Voir tous les articles</a>
+    <p>
+        <a class="back-link" href="{{ route('posts.index') }}">Voir tous les articles</a>
     </p>
 
     @if ($categories->isNotEmpty())
         <section class="related-posts">
             <h2>Catégories existantes</h2>
 
-            <ul class="mt-4 space-y-2">
+            <ul class="category-list">
                 @foreach ($categories as $category)
                     <li>
-                        <a href="{{ route('posts.category', $category) }}" class="font-medium text-indigo-600 hover:underline">{{ $category->name }}</a>
+                        <a class="text-link" href="{{ route('posts.category', $category) }}">{{ $category->name }}</a>
                     </li>
                 @endforeach
             </ul>

@@ -3,12 +3,12 @@
 
     <x-page-header title="Article introuvable" subtitle="Cet article n'existe pas ou a été supprimé." />
 
-    <x-alert type="info" title="Que faire ?" class="max-w-2xl">
+    <x-alert type="info" title="Que faire ?">
         Vérifiez l'adresse, ou parcourez la liste des articles.
     </x-alert>
 
-    <p class="mt-6">
-        <a href="{{ route('posts.index') }}" class="font-medium text-indigo-600 hover:underline">Voir tous les articles</a>
+    <p>
+        <a class="back-link" href="{{ route('posts.index') }}">Voir tous les articles</a>
     </p>
 
     @if ($recentPosts->isNotEmpty())

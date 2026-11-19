@@ -1,40 +1,41 @@
 <x-layout>
     <x-slot:title>Catégories - Mini-CMS</x-slot:title>
 
-    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <h1 class="text-3xl font-bold text-gray-900">Catégories</h1>
-        <a href="{{ route('admin.categories.create') }}" class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">Nouvelle catégorie</a>
+    <x-page-header title="Catégories" subtitle="Organisez les articles par catégorie." />
+
+    <div class="admin-toolbar">
+        <a class="button-link" href="{{ route('admin.categories.create') }}">Nouvelle catégorie</a>
     </div>
 
-    <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm">
-            <thead class="border-b border-gray-200 text-gray-600">
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
                 <tr>
-                    <th scope="col" class="py-2 pr-4 font-medium">Nom</th>
-                    <th scope="col" class="py-2 pr-4 font-medium">Slug</th>
-                    <th scope="col" class="py-2 pr-4 font-medium">Articles</th>
-                    <th scope="col" class="py-2 font-medium">Actions</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Slug</th>
+                    <th scope="col">Articles</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($categories as $category)
-                    <tr class="border-b border-gray-100 align-top">
-                        <td class="py-3 pr-4 font-medium text-gray-900">{{ $category->name }}</td>
-                        <td class="py-3 pr-4 text-gray-600">{{ $category->slug }}</td>
-                        <td class="py-3 pr-4 text-gray-600">{{ $category->posts_count }}</td>
-                        <td class="py-3">
-                            <div class="flex flex-wrap items-start gap-3">
-                                <a href="{{ route('admin.categories.edit', $category) }}" class="rounded-md border border-indigo-600 px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50">Modifier</a>
+                    <tr>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->slug }}</td>
+                        <td>{{ $category->posts_count }}</td>
+                        <td>
+                            <div class="admin-actions">
+                                <a class="button-secondary" href="{{ route('admin.categories.edit', $category) }}">Modifier</a>
 
-                                <details>
-                                    <summary class="cursor-pointer rounded-md border border-red-600 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50">Supprimer</summary>
+                                <details class="delete-details">
+                                    <summary class="delete-summary">Supprimer</summary>
 
-                                    <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" class="mt-3 rounded-md border border-red-200 bg-red-50 p-4">
+                                    <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" class="delete-form">
                                         @csrf
                                         @method('DELETE')
 
-                                        <p class="mb-3 text-sm text-red-900">Supprimer cette catégorie ? Ses articles resteront sans catégorie.</p>
-                                        <button type="submit" class="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">Confirmer la suppression</button>
+                                        <p class="delete-warning">Supprimer cette catégorie ? Ses articles resteront sans catégorie.</p>
+                                        <button class="delete-button" type="submit">Confirmer la suppression</button>
                                     </form>
                                 </details>
                             </div>
@@ -42,7 +43,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="py-6 text-center text-gray-500">Aucune catégorie pour l'instant.</td>
+                        <td class="empty-row" colspan="4">Aucune catégorie pour l'instant.</td>
                     </tr>
                 @endforelse
             </tbody>

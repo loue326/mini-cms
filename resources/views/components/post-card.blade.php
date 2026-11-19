@@ -12,7 +12,7 @@
 
     <p class="post-taxonomy">
         @if ($post->category)
-            <a href="{{ route('posts.category', $post->category) }}" class="underline hover:text-indigo-600">
+            <a href="{{ route('posts.category', $post->category) }}">
                 {{ $post->category->name }}
             </a>
         @else

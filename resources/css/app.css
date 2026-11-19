@@ -839,3 +839,155 @@ body.site-body {
         margin-top: -1rem;
     }
 }
+
+/* Auth, back office and error pages */
+.site-brand {
+    margin-right: 1.25rem;
+}
+
+.user-menu {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .45rem;
+}
+
+.user-name {
+    color: #d4cede;
+    font-size: .9rem;
+}
+
+.nav-button {
+    padding: .5rem .8rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #d4cede;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .18s ease, color .18s ease;
+}
+
+.nav-button:hover {
+    background: #c9df56;
+    color: #211a32;
+}
+
+.auth-form,
+.admin-form {
+    max-width: 640px;
+}
+
+.auth-switch {
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+}
+
+.admin-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin: -1rem 0 1.5rem;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 9px 18px 9px 9px;
+    background: var(--surface);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .93rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: .8rem .95rem;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+}
+
+.admin-table th {
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(255, 253, 248, .7);
+}
+
+.admin-table .empty-row {
+    padding: 1.5rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+.admin-actions {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.button-secondary {
+    width: fit-content;
+    min-height: 42px;
+    padding: .55rem .85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #59417b;
+    border-radius: 4px 12px 4px 12px;
+    color: #59417b;
+    font-size: .9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+
+.button-secondary:hover {
+    transform: translateY(-1px);
+    background: #59417b;
+    color: #fff;
+}
+
+.category-list {
+    display: grid;
+    gap: .35rem;
+    margin: .9rem 0 0;
+    padding-left: 1.2rem;
+}
+
+.post-actions .publication-form {
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .site-brand {
+        margin-right: .5rem;
+    }
+
+    .user-menu {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .admin-toolbar {
+        justify-content: stretch;
+        margin-top: 0;
+    }
+
+    .admin-toolbar .button-link {
+        width: 100%;
+    }
+}

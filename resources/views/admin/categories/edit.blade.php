@@ -1,38 +1,37 @@
 <x-layout>
     <x-slot:title>Modifier {{ $category->name }} - Mini-CMS</x-slot:title>
 
-    <h1 class="text-3xl font-bold text-gray-900">Modifier la catégorie</h1>
-    <p class="mt-2 mb-8 text-gray-600">{{ $category->name }}</p>
+    <x-page-header title="Modifier la catégorie" subtitle="{{ $category->name }}" />
 
     @if ($errors->any())
-        <x-alert type="error" title="Le formulaire contient des erreurs" class="mb-6 max-w-2xl">
+        <x-alert type="error" title="Le formulaire contient des erreurs">
             Corrigez les champs signalés, puis envoyez à nouveau.
         </x-alert>
     @endif
 
-    <form method="POST" action="{{ route('admin.categories.update', $category) }}" class="max-w-2xl space-y-5">
+    <form class="post-form admin-form" method="POST" action="{{ route('admin.categories.update', $category) }}">
         @csrf
         @method('PUT')
 
-        <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">Nom</label>
-            <input type="text" id="name" name="name" value="{{ old('name', $category->name) }}" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2">
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input class="form-control" type="text" id="name" name="name" maxlength="255" value="{{ old('name', $category->name) }}">
             @error('name')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <p class="field-error">{{ $message }}</p>
             @enderror
         </div>
 
-        <div>
-            <label for="slug" class="block text-sm font-medium text-gray-700">Slug</label>
-            <input type="text" id="slug" name="slug" value="{{ old('slug', $category->slug) }}" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2">
+        <div class="form-group">
+            <label for="slug">Slug</label>
+            <input class="form-control" type="text" id="slug" name="slug" maxlength="255" value="{{ old('slug', $category->slug) }}">
             @error('slug')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <p class="field-error">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="flex items-center gap-4">
-            <button type="submit" class="rounded-md bg-indigo-600 px-5 py-2.5 font-medium text-white hover:bg-indigo-700">Enregistrer</button>
-            <a href="{{ route('admin.categories.index') }}" class="text-sm text-gray-600 hover:underline">Annuler</a>
+        <div class="form-actions">
+            <button class="button-primary" type="submit">Enregistrer</button>
+            <a class="cancel-link" href="{{ route('admin.categories.index') }}">Annuler</a>
         </div>
     </form>
 </x-layout>
