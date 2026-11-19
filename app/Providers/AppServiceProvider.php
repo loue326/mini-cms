@@ -26,5 +26,13 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('manage-categories', fn (User $user) => $user->isAdmin());
         Gate::define('manage-tags', fn (User $user) => $user->isAdmin());
+
+        Gate::before(function (User $user, string $ability): ?bool {
+            if ($user->isAdmin() && $ability !== 'changeRole') {
+                return true;
+            }
+
+            return null;
+        });
     }
 }
