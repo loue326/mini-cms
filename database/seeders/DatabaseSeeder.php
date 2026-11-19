@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $users = collect([
-            User::factory()->create(['name' => 'Nadia Ben Salem', 'email' => 'nadia@example.com']),
+            User::factory()->admin()->create(['name' => 'Nadia Ben Salem', 'email' => 'nadia@example.com']),
             User::factory()->create(['name' => 'Amine Trabelsi', 'email' => 'amine@example.com']),
             User::factory()->create(['name' => 'Salma Gharbi', 'email' => 'salma@example.com']),
         ]);
