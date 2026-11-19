@@ -11,6 +11,10 @@
             <x-nav-link to="admin.categories.index" match="admin.categories.*">Catégories</x-nav-link>
         @endcan
 
+        @can('manage-tags')
+            <x-nav-link to="admin.tags.index" match="admin.tags.*">Tags</x-nav-link>
+        @endcan
+
         <div class="user-menu">
             @auth
                 <span class="user-name">{{ auth()->user()->name }}</span>
