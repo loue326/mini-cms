@@ -8,19 +8,18 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         return view('posts.index', [
             'heading' => 'Tous les articles',
-            'posts' => Post::with('user', 'category', 'tags')
-                ->latest('id')
-                ->paginate(4),
+            'posts' => Post::visibleTo($request->user())->with('user', 'category', 'tags')->latest('id')->paginate(4),
         ]);
     }
 
@@ -38,6 +37,8 @@ class PostController extends Controller
 
     public function create(): View
     {
+        Gate::authorize('create', Post::class);
+
         return view('posts.create', [
             'categories' => Category::orderBy('name')->get(),
             'tags' => Tag::query()->orderBy('name')->get(),
@@ -84,6 +85,8 @@ class PostController extends Controller
 
     public function show(Post $post): View
     {
+        Gate::authorize('view', $post);
+
         $post->load('user', 'category', 'tags');
 
         $related = collect();
