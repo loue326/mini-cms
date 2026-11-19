@@ -161,3 +161,20 @@ Après un clone, reconstruire la base avec `php artisan migrate:fresh --seed`. A
 ![Barre de navigation d'un utilisateur connecté, avec le message « Vous êtes connecté. »](screenshots/s11-connexion.png)
 
 ![Page 403 quand un auteur ouvre la modification de l'article d'un autre auteur](screenshots/s11-interdit.png)
+
+## Comparaison avec le starter kit Livewire
+
+| Critère | Mini-CMS (authentification manuelle) | Starter kit Livewire |
+|---|---|---|
+| Routes d'authentification | `routes/web.php` (`/inscription`, `/connexion`, `/deconnexion`) | enregistrées par Fortify depuis son paquet ; absentes de `routes/web.php` |
+| Inscription | `app/Http/Controllers/Auth/RegisterController.php` | `app/Actions/Fortify/CreateNewUser.php` et `resources/views/pages/auth/register.blade.php` |
+| Connexion | `app/Http/Controllers/Auth/LoginController.php` (`Auth::attempt`, `regenerate`) | contrôleur de Fortify et `resources/views/pages/auth/login.blade.php` |
+| Déconnexion | `app/Http/Controllers/Auth/LoginController.php` (`logout`, `invalidate`, `regenerateToken`) | route `logout` de Fortify ; les mêmes trois opérations dans `app/Livewire/Actions/Logout.php` |
+| Limitation des tentatives | aucune (`app/Http/Controllers/Auth/LoginController.php`) | 5 tentatives par minute par e-mail et adresse IP (`app/Providers/FortifyServiceProvider.php`) |
+| Mot de passe oublié | absent (`routes/web.php`) | `Features::resetPasswords()` dans `config/fortify.php` |
+| Vérification de l'e-mail | absente (`app/Models/User.php`, pas de `MustVerifyEmail`) | `Features::emailVerification()`, `MustVerifyEmail` sur `User`, middleware `verified` sur `/dashboard` |
+| Double authentification | absente (`app/Models/User.php`) | `Features::twoFactorAuthentication()` et `Features::passkeys()` |
+| Rôles et autorisations | `app/Models/User.php` (colonne `role`), `app/Providers/AppServiceProvider.php` (Gates), `app/Policies/PostPolicy.php` et `app/Http/Middleware/EnsureUserIsAdmin.php` | aucun : à écrire soi-même |
+| Tests | `tests/Feature/AuthTest.php`, `tests/Feature/AuthorizationTest.php`, `tests/Feature/AdminAccessTest.php` et `tests/Feature/PostVisibilityTest.php` | 10 fichiers dans `tests/Feature` (Auth, Settings, Dashboard) ; écrits avec PHPUnit dans le dépôt |
+
+Ce que je garderais du kit dans un vrai projet : la limitation des tentatives, la réinitialisation du mot de passe et la vérification de l'e-mail, qui évitent de réécrire des mécanismes sensibles. La version manuelle montre chaque mesure de sécurité (hachage, `regenerate()` à la connexion puis `invalidate()` et `regenerateToken()` à la déconnexion), mais dans les deux cas les rôles et les autorisations restent à écrire soi-même.
