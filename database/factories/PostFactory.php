@@ -77,4 +77,12 @@ class PostFactory extends Factory
             'published_at' => now(),
         ]);
     }
+
+    public function unpublished(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_published' => false,
+            'published_at' => null,
+        ]);
+    }
 }
